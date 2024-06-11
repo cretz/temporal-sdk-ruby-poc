@@ -21,18 +21,18 @@ Gemspec/DevelopmentDependencies:
 
 Metrics/AbcSize:
   Exclude:
-    - spec/**/*
+    - test/**/*
 
 Metrics/MethodLength:
   Exclude:
-    - spec/**/*
+    - test/**/*
 
 Metrics/BlockLength:
   Exclude:
     - temporalio.gemspec
     - Rakefile
-    - spec/**/*_spec.rb
+    - test/**/*
 
 Style/GlobalVars:
   Exclude:
-    - spec/**/*
+    - test/**/*
