@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 require 'bundler/gem_tasks'
-require 'fileutils'
-require 'rspec/core/rake_task'
-
-RSpec::Core::RakeTask.new(:spec)
-
-require 'rubocop/rake_task'
-
-RuboCop::RakeTask.new
-
 require 'rb_sys/extensiontask'
 require 'rb_sys/cargo/metadata'
 
@@ -20,6 +11,25 @@ GEMSPEC = Gem::Specification.load('temporalio.gemspec')
 RbSys::ExtensionTask.new('temporalio_bridge', GEMSPEC) do |ext|
   ext.lib_dir = 'lib/temporalio'
 end
+
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.warning = false
+  t.libs << 'test'
+  t.libs << 'lib'
+  t.test_files = FileList['test/**/*_test.rb']
+end
+
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
+
+require 'steep/rake_task'
+
+Steep::RakeTask.new
+
+require 'fileutils'
 
 namespace :proto do
   desc 'Generate API and Core protobufs'
@@ -74,4 +84,11 @@ namespace :proto do
   end
 end
 
-task default: %i[rubocop compile spec]
+namespace :rbs do
+  desc 'RBS tasks'
+  task :install_collection do
+    sh 'rbs collection install'
+  end
+end
+
+task default: [:rubocop, 'rbs:install_collection', :steep, :compile, :test]

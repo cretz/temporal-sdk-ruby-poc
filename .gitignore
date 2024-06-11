@@ -14,3 +14,4 @@ mkmf.log
 target/
 Gemfile.lock
 .rspec_status
+/.gem_rbs_collection

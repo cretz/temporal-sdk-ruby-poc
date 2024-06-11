@@ -1,16 +1,24 @@
 # frozen_string_literal: true
 
 require 'async'
-require 'async/barrier'
-require 'async/waiter'
-require 'securerandom'
-require 'spec_helper'
+require 'test_helper'
 require 'temporalio'
-require 'temporalio/api'
 
-RSpec.describe Temporalio do
-  it 'has a version number' do
-    expect(Temporalio::VERSION).not_to be nil
+class TemporalioTest < Minitest::Test
+  include TestHelper
+
+  def test_version_number
+    assert !Temporalio::VERSION.nil?
+  end
+
+  def test_start_workflows_threaded
+    start_workflows
+  end
+
+  def test_start_workflows_async
+    Sync do
+      start_workflows
+    end
   end
 
   def start_workflows
@@ -50,15 +58,5 @@ RSpec.describe Temporalio do
       Temporalio::Api::WorkflowService::V1::StartWorkflowExecutionResponse.decode(result)
     end
     puts 'Started workflows', results
-  end
-
-  it 'can start workflows threaded' do
-    start_workflows
-  end
-
-  it 'can start workflows async' do
-    Sync do
-      start_workflows
-    end
   end
 end

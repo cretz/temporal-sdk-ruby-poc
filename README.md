@@ -21,27 +21,31 @@ To build and test release:
 
 ### Testing
 
-To test:
+This project uses `minitest`. To test:
 
-    bundle exec rspec
+    bundle exec test
 
 Single test:
 
-    bundle exec rspec -e "my test description"
+    bundle exec test TESTOPTS=
 
 ### Code Formatting and Type Checking
 
-This project uses rubocop:
+This project uses `rubocop`:
 
     bundle exec rake rubocop:autocorrect
 
-TODO(cretz): Type checking
+This project uses `steep`:
+
+    bundle exec rake steep
 
 ### Proto Generation
+
+Run:
 
     bundle exec rake proto:generate
 
 ## TODO
 
-* Don't use SendableProc pattern, try Opaque
 * Try to use wrap instead of TypedData
+* Note that https://github.com/square/rbs_protobuf doesn't yet support google-protobuf, so it is unreasonable to have typed protobuf at this time

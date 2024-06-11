@@ -30,9 +30,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'async'
   spec.add_development_dependency 'grpc'
   spec.add_development_dependency 'grpc-tools'
+  spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rake-compiler'
   spec.add_development_dependency 'rb_sys', '~> 0.9.63'
-  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'steep', '~> 1.7.0'
 end
